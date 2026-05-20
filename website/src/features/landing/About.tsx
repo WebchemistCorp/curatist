@@ -31,7 +31,7 @@ export const About: React.FC = () => (
       <div className="text-center space-y-6">
         <p className="text-sm uppercase tracking-[0.15em] font-medium" style={{ color: PRIMARY }}>About Curatist</p>
         <h2 className="text-4xl md:text-5xl font-bold text-zinc-50 leading-tight" style={{ wordBreak: 'keep-all' }}>
-          <span style={{ color: PRIMARY }}>Curator</span> + As<span style={{ color: PRIMARY }}>ist</span>
+          <span style={{ color: PRIMARY }}>Curat</span>or + As<span style={{ color: PRIMARY }}>ist</span>
         </h2>
         <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ wordBreak: 'keep-all' }}>
           큐레이터처럼 당신의 일상을 선별하고 정리하는 개인 비서.
