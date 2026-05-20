@@ -3,18 +3,26 @@ import { Brain, Sparkles, Zap } from 'lucide-react'
 
 const PRIMARY = '#8b5cf6'
 
-const DIFF_ITEMS = [
+const SCENARIOS = [
   {
-    label: '기존 방식',
-    points: ['앱마다 흩어진 일정·이메일·지출 정보', '중요한 것을 놓치고 나서야 인지', '소비 패턴 파악 없이 반복되는 지출'],
-    accent: '#ef4444',
-    dim: true,
+    situation: '오늘 뭐가 중요한지 모를 때',
+    cmd: 'curatist mail inbox --priority',
+    result: '우선순위 높은 메일 3개 · 나머지 12개 필터링',
   },
   {
-    label: 'Curatist',
-    points: ['하나의 CLI로 일상 정보 통합 관리', 'Asurada가 중요도를 판단하고 먼저 알림', '소비 패턴 분석으로 불필요한 지출 제거'],
-    accent: PRIMARY,
-    dim: false,
+    situation: '이번 달 지출 점검할 때',
+    cmd: 'curatist spend summary --month this',
+    result: '총 482,000원 · 카페 32% · 구독 28%',
+  },
+  {
+    situation: '오늘 일정 한눈에 볼 때',
+    cmd: 'curatist schedule today',
+    result: '미팅 2개 · 마감 1개 · 여유 시간 3h',
+  },
+  {
+    situation: '불필요한 구독 찾을 때',
+    cmd: 'curatist spend --category 구독 --unused',
+    result: '3개 서비스 · 월 24,900원 절약 가능',
   },
 ]
 
@@ -31,36 +39,28 @@ export const About: React.FC = () => (
       <div className="text-center space-y-6">
         <p className="text-sm uppercase tracking-[0.15em] font-medium" style={{ color: PRIMARY }}>About Curatist</p>
         <h2 className="text-4xl md:text-5xl font-bold text-zinc-50 leading-tight" style={{ wordBreak: 'keep-all' }}>
-          <span style={{ color: PRIMARY }}>Curat</span>or + As<span style={{ color: PRIMARY }}>ist</span>
+          흩어진 일상,<br />
+          <span style={{ color: PRIMARY }}>필요한 것만 남깁니다</span>
         </h2>
         <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ wordBreak: 'keep-all' }}>
-          큐레이터처럼 당신의 일상을 선별하고 정리하는 개인 비서.
-          <br />
-          Curatist는 흩어진 정보를 모아 당신이 집중해야 할 것만 남깁니다.
+          이메일, 일정, 소비를 하나의 터미널에서.<br />
+          Curatist는 중요한 것만 골라내는 개인 큐레이터입니다.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        {DIFF_ITEMS.map((item) => (
+      <div className="grid md:grid-cols-2 gap-4">
+        {SCENARIOS.map(({ situation, cmd, result }) => (
           <div
-            key={item.label}
-            className="rounded-2xl p-8 border space-y-5"
-            style={{
-              background: item.dim ? 'rgba(255,255,255,0.02)' : `${item.accent}0d`,
-              borderColor: item.dim ? 'rgba(255,255,255,0.06)' : `${item.accent}33`,
-            }}
+            key={cmd}
+            className="rounded-2xl p-6 border space-y-4"
+            style={{ background: `${PRIMARY}08`, borderColor: `${PRIMARY}1a` }}
           >
-            <p className="font-semibold text-lg" style={{ color: item.dim ? '#ffffff' : item.accent }}>
-              {item.label}
-            </p>
-            <ul className="space-y-3">
-              {item.points.map((p) => (
-                <li key={p} className="flex items-start gap-3 text-sm text-zinc-400">
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: item.dim ? '#ef4444' : item.accent }} />
-                  {p}
-                </li>
-              ))}
-            </ul>
+            <p className="text-xs text-zinc-500 font-medium tracking-wide">{situation}</p>
+            <div className="flex items-center gap-2 bg-zinc-900/80 border border-zinc-800/60 rounded-xl px-4 py-2.5 font-mono text-sm">
+              <span className="text-zinc-600">$</span>
+              <span className="text-zinc-200">{cmd}</span>
+            </div>
+            <p className="text-sm font-mono" style={{ color: PRIMARY }}>→ {result}</p>
           </div>
         ))}
       </div>
